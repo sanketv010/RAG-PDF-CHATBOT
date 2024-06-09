@@ -12,3 +12,4 @@ langchainhub
 PyPDF2
 langchain-objectbox
 langchain
+langchain-pinecone
