@@ -46,8 +46,8 @@ llm = Ollama(model = "gemma:2b")
 if 'buffer_memory' not in st.session_state:
     st.session_state.buffer_memory = ConversationBufferWindowMemory(k=3, return_messages=True)
 
-system_msg_template = SystemMessagePromptTemplate.from_template(template="""Answer the question as truthfully as possible using the provided context,
-and if the answer is not contained within the text below, say 'I don't know'""")
+system_msg_template = SystemMessagePromptTemplate.from_template(template="""Answer the questions based on the provided context only.
+Please provide the most accurate response based on the question and if the answer is not present in the context, please respond with I don't know.""")
 
 human_msg_template = HumanMessagePromptTemplate.from_template(template="{input}")
 
