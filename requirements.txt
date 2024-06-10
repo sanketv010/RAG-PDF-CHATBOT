@@ -13,3 +13,4 @@ PyPDF2
 langchain-objectbox
 langchain
 langchain-pinecone
+sentence_transformers
