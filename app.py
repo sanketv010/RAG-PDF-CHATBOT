@@ -13,11 +13,15 @@ from langchain.prompts import (
     ChatPromptTemplate,
     MessagesPlaceholder
 )
-
+# from langchain_huggingface.llms import HuggingFacePipeline
+from langchain_google_genai import GoogleGenerativeAI
+from langchain_groq import ChatGroq
 from dotenv import load_dotenv
 load_dotenv()
 
 os.environ["PINECONE_API_KEY"] = os.environ['PINECONE_API_KEY']
+os.environ["GROQ_API_KEY"] = os.environ['GROQ_API_KEY']
+# os.environ["GOOGLE_API_KEY"] = os.environ['GOOGLE_AI_API_KEY']
 
 embeddings = OllamaEmbeddings(model="all-minilm:latest")
 pc = Pinecone()
@@ -26,14 +30,15 @@ index = pc.Index(index_name)
 
 def retriever(input):
     input_em = embeddings.embed_query(input)
-    result = index.query(vector=input_em, top_k=2, includeMetadata=True)
+    result = index.query(vector=input_em, top_k=4, includeMetadata=True)
     texts = []
     for match in result["matches"]:
         if "metadata" in match and "text" in match["metadata"]:
             texts.append(match["metadata"]["text"])
     return " ".join(texts)
 
-st.subheader("RAG-PDF Chatbot")
+# st.title("RAG-PDF Chatbot")
+st.markdown("<h1 style='text-align: center;'>RAG-PDF Chatbot</h1><br>", unsafe_allow_html=True)
 
 if 'responses' not in st.session_state:
     st.session_state['responses'] = ["How can I assist you?"]
@@ -41,13 +46,20 @@ if 'responses' not in st.session_state:
 if 'requests' not in st.session_state:
     st.session_state['requests'] = []
 
-llm = Ollama(model = "gemma:2b")
+# llm = HuggingFacePipeline.from_model_id(
+#     model_id="gpt2",
+#     task="text-generation",
+#     pipeline_kwargs={"max_new_tokens": 10},
+# )
+
+llm = ChatGroq(temperature=0, model_name="mixtral-8x7b-32768")
+# llm = GoogleGenerativeAI(temperature=0.1, model="models/text-bison-001")
 
 if 'buffer_memory' not in st.session_state:
     st.session_state.buffer_memory = ConversationBufferWindowMemory(k=3, return_messages=True)
 
-system_msg_template = SystemMessagePromptTemplate.from_template(template="""Answer the questions based on the provided context only.
-Please provide the most accurate response based on the question and if the answer is not present in the context, please respond with I don't know.""")
+system_msg_template = SystemMessagePromptTemplate.from_template(template="""Answer the question as truthfully as possible using the provided context, 
+and if the answer is not contained within the text below, say 'I don't know'""")
 
 human_msg_template = HumanMessagePromptTemplate.from_template(template="{input}")
 

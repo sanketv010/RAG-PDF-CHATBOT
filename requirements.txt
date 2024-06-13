@@ -13,4 +13,9 @@ PyPDF2
 langchain-objectbox
 langchain
 langchain-pinecone
-sentence_transformers
+ragas
+langchain-google-genai
+langchain-google-vertexai
+transformers
+langchain_huggingface
+langchain-groq
