@@ -19,3 +19,4 @@ langchain-google-vertexai
 transformers
 langchain_huggingface
 langchain-groq
+nltk
