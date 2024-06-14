@@ -8,6 +8,12 @@ The RAG-PDF Chatbot leverages the power of modern language models and vector emb
 - **Efficient Retrieval**: Utilizes Pinecone for fast and accurate vector search.
 - **Powerful Language Model**: Employs ChatGroq's Inference API for generating responses.
 - **Context Management**: Maintains conversation context using ConversationBufferWindowMemory.
+
+## Demo Video
+
+Check out the demo of the RAG-PDF Chatbot in action:
+
+![Demo Video](https://github.com/sanketv010/RAG-PDF-CHATBOT/tree/main/demo/RAG-PDF-CHATBOT.mp4)
   
 ## Installation
 To install and run the RAG-PDF Chatbot, follow these steps:
