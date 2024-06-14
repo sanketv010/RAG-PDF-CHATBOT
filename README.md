@@ -13,7 +13,10 @@ The RAG-PDF Chatbot leverages the power of modern language models and vector emb
 
 Check out the demo of the RAG-PDF Chatbot in action:
 
-![Demo Video](https://github.com/sanketv010/RAG-PDF-CHATBOT/tree/main/demo/RAG-PDF-CHATBOT.mp4)
+<video width="640" height="360" controls>
+  <source src="https://github.com/sanketv010/RAG-PDF-CHATBOT/tree/main/demo/RAG-PDF-CHATBOT.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
   
 ## Installation
 To install and run the RAG-PDF Chatbot, follow these steps:
